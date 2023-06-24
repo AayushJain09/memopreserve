@@ -1,49 +1,25 @@
-import { Inter as FontSans } from "next/font/google"
-import localFont from "next/font/local"
+import { Cabin } from "next/font/google"
+
+import { cn } from "@/lib/utils"
 
 import "@/styles/globals.css"
-import { siteConfig } from "@/config/site"
-import { absoluteUrl, cn } from "@/lib/utils"
-import { Toaster } from "@/components/ui/toaster"
-import { Analytics } from "@/components/analytics"
-import { TailwindIndicator } from "@/components/tailwind-indicator"
-import { ThemeProvider } from "@/components/theme-provider"
 
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
-
-// Font files can be colocated inside of `pages`
-const fontHeading = localFont({
-  src: "../assets/fonts/CalSans-SemiBold.woff2",
-  variable: "--font-heading",
-})
+// import { Hoves } from "@/lib/fonts";
+// import { Toaster } from "@/components/toaster";
 
 interface RootLayoutProps {
   children: React.ReactNode
 }
 
+// import { Analytics } from "@/components/analytics";
+
 export const metadata = {
   title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
+    default: "Memopreserve",
+    template: `%s — Memopreserve`,
   },
-  description: siteConfig.description,
-  keywords: [
-    "Rewind",
-    "Memories",
-    "Timeline",
-    "Ancestry",
-    "Radix UI",
-  ],
-  authors: [
-    {
-      name: "shadcn",
-      url: "https://shadcn.com",
-    },
-  ],
-  creator: "shadcn",
+  description: "A digital memory vault for humans.",
+  keywords: ["memory", "digital", "family", "vault", "online"],
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
@@ -51,25 +27,22 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [`${siteConfig.url}/og.jpg`],
-    creator: "Stino Systems",
+    url: "https://memopreserve.com/",
+    title: "Memopreserve",
+    description: "A virtual memory vault for everyone.",
+    siteName: "MemoPreserve",
   },
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  manifest: `${siteConfig.url}/site.webmanifest`,
+  manifest: `https://memopreserve.com/site.webmanifest`,
 }
+
+const cabin = Cabin({
+  subsets: ["latin"],
+})
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
@@ -77,17 +50,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
-          fontHeading.variable
+          "min-h-screen bg-background antialiased",
+          cabin.className
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-          <Analytics />
-          <Toaster />
-          <TailwindIndicator />
-        </ThemeProvider>
+        {children}
+        {/* <Toaster />
+        <Analytics /> */}
       </body>
     </html>
   )
