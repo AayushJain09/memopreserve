@@ -26,35 +26,6 @@ export function generateProxyPassword(): string {
   return randomString
 }
 
-export const stripeLog = async (message: string, type: string) => {
-  const HOOK = `${process.env.STRIPE_DISCORD_WEBHOOK}`
-
-  if (!HOOK) return
-
-  try {
-    return await fetch(HOOK, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        embeds: [
-          {
-            fields: [
-              {
-                name: type ?? "",
-                value: message ?? "",
-              },
-            ],
-          },
-        ],
-      }),
-    })
-  } catch (e) {
-    console.log(`Failed to log to Discord. Error: ${e}`)
-  }
-}
-
 export function getRandomValueFromArray(array: any): string {
   if (array.length === 0) {
     return ""
